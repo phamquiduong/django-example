@@ -1,0 +1,45 @@
+version: "2.3"
+services:
+  # Nginx server
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - ${NGINX_PORT}:80
+    volumes:
+      - ./nginx/config:/etc/nginx
+      - ./nginx/log/:/var/log/nginx/
+      - ./django/static/:/opt/apps/static/
+    command: /tmp/run_nginx.sh
+    environment:
+      - DOLLAR=$
+    env_file:
+      - ./.env
+    depends_on:
+      - django
+    restart: always
+
+  # Django server
+  django:
+    build:
+      context: ../
+      dockerfile: docker/django/Dockerfile
+    expose:
+      - ${django_PORT}
+    volumes:
+      - ../src:/src
+      - ../docker/django/log:/log
+      - ../docker/django/static:/static
+      - ../docker/database:/database
+    env_file:
+      - ./.env
+    command: bash -c "cd src &&
+                      python manage.py collectstatic --noinput &&
+                      python manage.py migrate &&
+                      python manage.py runserver 0.0.0.0:${DJANGO_PORT}"
+    restart: always
+networks:
+  default:
+    external: true
+    name: ${COMPOSE_PROJECT_NAME}_network
