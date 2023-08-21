@@ -32,10 +32,10 @@ services:
       - ../docker/django/log:/log
       - ../docker/django/static:/static
       - ../docker/database:/database
-    env_file:
-      - ./.env
+      - ../docker/.env:/docker/.env
     command: bash -c "cd src &&
                       python manage.py collectstatic --noinput &&
+                      python manage.py makemigrations database &&
                       python manage.py migrate &&
                       python manage.py runserver 0.0.0.0:${DJANGO_PORT}"
     restart: always

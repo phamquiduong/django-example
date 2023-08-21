@@ -1,6 +1,9 @@
 django
+python-dotenv
 
 # Rest API
 djangorestframework
 markdown       # Markdown support for the browsable API.
 django-filter  # Filtering support
+
+djangorestframework_simplejwt
