@@ -42,11 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # RestAPI
+    # Django Rest Framework
     'rest_framework',
     'rest_framework_simplejwt',
+    'drf_yasg',
 
-    # User application
+    # Core application
     'database',
 ]
 
@@ -144,6 +145,12 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
+    'UPDATE_LAST_LOGIN': True,
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'TOKEN_OBTAIN_SERIALIZER': 'api_auth.serializers.auth_serializer.CustomTokenObtainPairSerializer'
+}
+
+SWAGGER_SETTINGS = {
+    'DEFAULT_AUTO_SCHEMA_CLASS': 'api_core.swagger_auto_schema.ReadWriteAutoSchema',
 }
