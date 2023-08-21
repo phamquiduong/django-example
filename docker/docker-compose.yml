@@ -37,7 +37,7 @@ services:
                       python manage.py collectstatic --noinput &&
                       python manage.py makemigrations database &&
                       python manage.py migrate &&
-                      python manage.py runserver 0.0.0.0:${DJANGO_PORT}"
+                      gunicorn --bind 0.0.0.0:${DJANGO_PORT} core.wsgi --reload"
     restart: always
 networks:
   default:
