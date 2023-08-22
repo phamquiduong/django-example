@@ -135,7 +135,7 @@ STATIC_ROOT = BASE_DIR / '../static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'database.CustomUser'
+AUTH_USER_MODEL = 'database.User'
 
 # RestAPI setup
 REST_FRAMEWORK = {
