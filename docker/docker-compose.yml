@@ -29,9 +29,9 @@ services:
       - ${DJANGO_PORT}
     volumes:
       - ../src:/src
-      - ../docker/django/log:/log
-      - ../docker/django/static:/static
-      - ../docker/database:/database
+      - ../docker/django/log:/docker/django/log
+      - ../docker/django/static:/docker/django/static
+      - ../docker/database:/docker/database
       - ../docker/.env:/docker/.env
     command: bash -c "cd src &&
                       python manage.py collectstatic --noinput &&
