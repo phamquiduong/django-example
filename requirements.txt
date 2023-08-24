@@ -1,1 +1,11 @@
 django
+gunicorn
+python-dotenv
+
+# Rest API
+djangorestframework
+markdown       # Markdown support for the browsable API.
+django-filter  # Filtering support
+drf-yasg
+
+djangorestframework_simplejwt
