@@ -13,7 +13,7 @@ services:
       - ./django/static/:/opt/apps/static/
     command: /tmp/run_nginx.sh
     environment:
-      - DOLLAR=$
+      - DOLLAR=$$
     env_file:
       - ./.env
     depends_on:
