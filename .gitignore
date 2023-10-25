@@ -4,13 +4,18 @@ __pycache__/
 # Environment
 .env
 log/
+logs/
 .venv/
+venv/
 
 # Docker
 docker/nginx/config/nginx.conf
 
 # Database
-docker/database/db.sqlite3
+database/
 
 # Static collections
-docker/django/static/
+static/
+
+# Media folder
+media/

@@ -29,13 +29,13 @@ services:
       - ${DJANGO_PORT}
     volumes:
       - ../src:/src
-      - ../docker/django/log:/docker/django/log
-      - ../docker/django/static:/docker/django/static
-      - ../docker/database:/docker/database
+      - ../logs:/logs
+      - ../static:/static
+      - ../media:/media
+      - ../database:/database
       - ../docker/.env:/docker/.env
     command: bash -c "cd src &&
                       python manage.py collectstatic --noinput &&
-                      python manage.py makemigrations database &&
                       python manage.py migrate &&
                       gunicorn --bind 0.0.0.0:${DJANGO_PORT} core.wsgi --reload"
     restart: always
