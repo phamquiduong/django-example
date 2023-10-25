@@ -73,10 +73,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+DB_FOLDER = BASE_DIR / '../database/'
+DB_FOLDER.mkdir(parents=True, exist_ok=True)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / '../database/db.sqlite3',
+        'NAME': DB_FOLDER / 'db.sqlite3',
     }
 }
 
@@ -119,6 +121,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / '../static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / '../media/'
+MEDIA_ROOT.mkdir(parents=True, exist_ok=True)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
