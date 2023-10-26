@@ -1,3 +1,3 @@
-from helpers.json.json_helper import JsonHelper
+from helpers.json.json_helper import JsonHelper, MyEncoder
 
-__all__ = ['JsonHelper']
+__all__ = ['JsonHelper', 'MyEncoder']
