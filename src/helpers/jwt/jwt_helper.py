@@ -2,7 +2,7 @@ from typing import Any
 
 import jwt
 
-from jwt_.config import ALGORITHM, SECRET_KEY, Message
+from helpers.jwt.config import ALGORITHM, SECRET_KEY, Message
 
 
 class JWTHelper:
