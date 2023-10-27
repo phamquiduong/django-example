@@ -1,5 +1,6 @@
 import json
 from datetime import date, datetime
+from typing import Any
 
 from django.db.models import QuerySet
 
@@ -24,5 +25,5 @@ class JsonHelper:
         return MyEncoder().encode(obj)
 
     @staticmethod
-    def decode(s: str):
+    def decode(s: str | bytes | bytearray) -> dict[str, Any]:
         return json.loads(s)

@@ -3,6 +3,7 @@ from datetime import timedelta
 from django.utils import timezone
 
 from apps.authentication.helpers.token.config import ACCESS_TOKEN_EXPIRATION, REFRESH_TOKEN_EXPIRATION
+from constants.api.api_code import APICode
 from helpers.jwt import JWTHelper
 from utils.api.exception import APIException, UnauthorizedException
 
@@ -21,7 +22,7 @@ class TokenBase:
         })
 
         if jwt_helper.error is not None:
-            raise APIException(error_detail=jwt_helper.error)
+            raise APIException(api_code=APICode.LOGIN, error_detail=jwt_helper.error)
 
         return jwt_helper.token
 
@@ -29,7 +30,7 @@ class TokenBase:
         jwt_helper = JWTHelper(token=token)
 
         if jwt_helper.error is not None:
-            raise UnauthorizedException(error_detail=jwt_helper.error)
+            raise UnauthorizedException(api_code=APICode.LOGIN, error_detail=jwt_helper.error)
 
         return True
 
