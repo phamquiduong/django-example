@@ -40,9 +40,14 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     username = None
     email = models.EmailField(_('email address'), unique=True)
+
+    # Status
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
+
+    # Personal information
+    full_name = models.CharField(max_length=128, null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

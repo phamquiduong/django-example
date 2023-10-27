@@ -10,7 +10,7 @@ services:
     volumes:
       - ./nginx/config:/etc/nginx
       - ./nginx/log/:/var/log/nginx/
-      - ./django/static/:/opt/apps/static/
+      - ../static/:/opt/apps/static/
     command: /tmp/run_nginx.sh
     environment:
       - DOLLAR=$$
