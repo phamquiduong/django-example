@@ -6,7 +6,6 @@ from utils.api.exception import APIException, MethodNotAllowedExeption
 
 def require_http_methods(*request_methods: str, api_code: int = 0):
     def decorator(func):
-
         def inner(request, *args, **kwargs):
             if request.method not in request_methods:
                 return MethodNotAllowedExeption(api_code=api_code).get_response()
@@ -28,5 +27,4 @@ def require_http_methods(*request_methods: str, api_code: int = 0):
                 return APIException(api_code=api_code, error_detail=str(exc)).get_response()
 
         return inner
-
     return decorator

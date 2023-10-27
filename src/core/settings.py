@@ -111,6 +111,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Authentication
 AUTH_USER_MODEL = 'authentication.User'
 
+# API
+API_AUTH_HEADER = 'Authorization-Token'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

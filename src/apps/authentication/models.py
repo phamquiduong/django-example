@@ -56,3 +56,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f'<{self.email}>'
+
+    def dict(self):
+        return {
+            'id': self.id,  # type: ignore
+            'email': self.email,
+            'full_name': self.full_name,
+        }
