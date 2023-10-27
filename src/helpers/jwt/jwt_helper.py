@@ -29,8 +29,6 @@ class JWTHelper:
         except Exception as ex:
             self.error = str(ex)
 
-        return self
-
     def __set_token(self, token: str):
         self.token = token
 
@@ -38,12 +36,10 @@ class JWTHelper:
             self.payload = jwt.decode(
                 jwt=token,
                 key=SECRET_KEY,
-                algorithm=ALGORITHM)
+                algorithms=[ALGORITHM])
         except jwt.ExpiredSignatureError:
             self.error = Message.EXPIRED_SIGNATURE_ERROR
         except jwt.InvalidTokenError:
             self.error = Message.INVALID_TOKEN_ERROR
         except Exception as ex:
             self.error = str(ex)
-
-        return self
