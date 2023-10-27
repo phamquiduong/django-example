@@ -7,7 +7,7 @@ from helpers.json import JsonHelper, MyEncoder
 
 class APIException(Exception):
     def __init__(self,
-                 status_code: HTTPStatus = HTTPStatus.INTERNAL_SERVER_ERROR,
+                 status_code: HTTPStatus | int = HTTPStatus.INTERNAL_SERVER_ERROR,
                  api_code: int = 0,
                  error_code: int = 0,
                  error_detail: str | None = None,
@@ -16,7 +16,7 @@ class APIException(Exception):
         self.status_code = status_code
         self.api_code = api_code
         self.error_code = error_code
-        self.error_detail = error_detail or status_code.description
+        self.error_detail = error_detail or (status_code.description if isinstance(status_code, HTTPStatus) else '')
         self.error_fields = error_fields
 
         super().__init__(self.error_detail)
