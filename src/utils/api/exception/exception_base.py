@@ -21,10 +21,13 @@ class APIException(Exception):
 
         super().__init__(self.error_detail)
 
+    def get_error_code(self):
+        return f'E-{self.status_code:03d}-{self.api_code:03d}-{self.error_code:03d}'
+
     def dict(self):
         error_dict = {
             'status_code': self.status_code,
-            'error_code': f'E-{self.status_code:03d}-{self.api_code:03d}-{self.error_code:03d}',
+            'error_code': self.get_error_code(),
             'error_detail': self.error_detail,
         }
         if self.error_fields is not None:

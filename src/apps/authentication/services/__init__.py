@@ -5,5 +5,4 @@ from apps.authentication.services.register_service import register
 
 __all__ = ['get_csrf_token',
            'register',
-           'login', 'refresh_token',
-           ]
+           'login', 'refresh_token',]
