@@ -2,6 +2,7 @@ from enum import IntEnum
 
 
 class APICode(IntEnum):
-    LOGIN = 1
-    REFRESH = 2
-    GET_USER = 3
+    REGISTER = 1
+    LOGIN = 2
+    REFRESH = 3
+    GET_USER = 4

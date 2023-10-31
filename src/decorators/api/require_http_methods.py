@@ -1,5 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 
+from helpers.json import MyEncoder
 from helpers.logger import logger
 from utils.api.exception import APIException, MethodNotAllowedExeption
 
@@ -16,7 +17,7 @@ def require_http_methods(*request_methods: str, api_code: int = 0):
                 if isinstance(response, JsonResponse):
                     return response
 
-                return JsonResponse({'data': response.getvalue()}, status=response.status_code)
+                return JsonResponse({'data': response.getvalue()}, encoder=MyEncoder, status=response.status_code)
 
             except APIException as api_exc:
                 logger.error(str(api_exc))

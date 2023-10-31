@@ -61,6 +61,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         return {
             'id': self.id,  # type: ignore
             'email': self.email,
-            'full_name': self.full_name,
+
             'is_superuser': self.is_superuser,
+            'is_active': self.is_active,
+            'date_joined': self.date_joined,
+
+            'full_name': self.full_name,
         }
