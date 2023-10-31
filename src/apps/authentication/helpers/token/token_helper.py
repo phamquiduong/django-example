@@ -25,11 +25,14 @@ class TokenBase:
 
         return jwt_helper.token
 
-    def auth(self, token: str):
+    def auth(self, token: str) -> int | None:
         jwt_helper = JWTHelper(token=token)
 
         if jwt_helper.error is not None:
             raise UnauthorizedException(api_code=self.api_code, error_detail=jwt_helper.error)
+
+        if jwt_helper.payload.get('type', None) != self.token_type:
+            raise UnauthorizedException(api_code=self.api_code, error_detail='Token type mismatch')
 
         return jwt_helper.payload.get('user_id', None)
 

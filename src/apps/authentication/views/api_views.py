@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, get_user_model
 from django.http import HttpRequest, JsonResponse
 from django.middleware import csrf
 from django.utils import timezone
@@ -9,6 +9,8 @@ from apps.authentication.helpers.token import AccessTokenHelper, RefreshTokenHel
 from decorators.api.require_http_methods import require_http_methods
 from utils.api.exception import BadRequestException, UnauthorizedException
 from utils.api.parse_request import parse_request
+
+User = get_user_model()
 
 
 @require_http_methods('GET')
@@ -37,6 +39,25 @@ def login(request: HttpRequest, *_, **__):
         })
 
     raise UnauthorizedException(api_code=APICode.LOGIN, error_detail='Email or password incorrect')
+
+
+@require_http_methods('POST', api_code=APICode.REFRESH)
+def refresh_token(request: HttpRequest, *_, **__):
+    data = parse_request(request)
+
+    token = data.get('refresh_token', None)
+
+    if not isinstance(token, str) or not token:
+        raise BadRequestException(api_code=APICode.REFRESH, error_fields={'refresh_token': 'Required refresh token'})
+
+    user_id = RefreshTokenHelper(api_code=APICode.REFRESH).auth(token=token)
+    if user_id is None or not User.objects.filter(id=user_id).exists():
+        raise BadRequestException(api_code=APICode.REFRESH, error_fields={'refresh_token': 'User does not exist'})
+
+    return JsonResponse({
+        'access_token': AccessTokenHelper(api_code=APICode.LOGIN).render(user_id=user_id),
+        'refresh_token': RefreshTokenHelper(api_code=APICode.LOGIN).render(user_id=user_id),
+    })
 
 
 @require_http_methods('GET', api_code=APICode.GET_USER)
