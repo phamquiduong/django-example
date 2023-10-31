@@ -1,9 +1,11 @@
+from typing import Any
+
 from django.http import HttpRequest
 
 from helpers.json import JsonHelper
 
 
-def parse_request(request: HttpRequest):
+def parse_request(request: HttpRequest) -> dict[str, Any]:
     try:
         return JsonHelper.decode(request.body)
     except Exception:
