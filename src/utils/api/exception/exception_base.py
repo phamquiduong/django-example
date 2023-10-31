@@ -11,13 +11,14 @@ class APIException(Exception):
                  api_code: int = 0,
                  error_code: int = 0,
                  error_detail: str | None = None,
-                 error_fields: dict[str, str] | None = None) -> None:
+                 error_fields: dict[str, str | list[str]] | None = None) -> None:
 
         self.status_code = status_code
         self.api_code = api_code
         self.error_code = error_code
         self.error_detail = error_detail or (status_code.description if isinstance(status_code, HTTPStatus) else '')
-        self.error_fields = error_fields
+        if error_fields is not None:
+            self.error_fields = {k: [v] if not isinstance(v, list) else v for k, v in error_fields.items()}
 
         super().__init__(self.error_detail)
 

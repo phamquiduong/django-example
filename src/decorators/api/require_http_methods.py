@@ -2,14 +2,14 @@ from django.http import HttpResponse, JsonResponse
 
 from helpers.json import MyEncoder
 from helpers.logger import logger
-from utils.api.exception import APIException, MethodNotAllowedExeption
+from utils.api.exception import APIException, MethodNotAllowedException
 
 
 def require_http_methods(*request_methods: str, api_code: int = 0):
     def decorator(func):
         def inner(request, *args, **kwargs):
             if request.method not in request_methods:
-                return MethodNotAllowedExeption(api_code=api_code).get_response()
+                return MethodNotAllowedException(api_code=api_code).get_response()
 
             try:
                 response: JsonResponse | HttpResponse = func(request, *args, **kwargs)
