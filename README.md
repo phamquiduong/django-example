@@ -204,7 +204,6 @@ Project
 ├─ 📁src
 │  ├─ 📁apps                        # Django application
 │  │  └─ 📁authentication           # Authentication app
-│  ├─ 📁constants                   # System Constants
 │  ├─ 📁core                        # System core configuration
 │  ├─ 📁decorators                  # System decorators
 │  ├─ 📁helpers                     # System helpers
