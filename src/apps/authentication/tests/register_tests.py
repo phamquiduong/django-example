@@ -36,7 +36,7 @@ class RegisterTestCase(TestCase):
         try:
             register(email=None, password=self.TEST_PASSWORD)
         except APIException as exc:
-            self.assertEqual(exc.get_error_code(), 'E-400-001-101')
+            self.assertEqual(exc.get_error_code(), 'E-400-001-100')
         else:
             self.fail()
 
@@ -44,7 +44,7 @@ class RegisterTestCase(TestCase):
         try:
             register(email='', password=self.TEST_PASSWORD)
         except APIException as exc:
-            self.assertEqual(exc.get_error_code(), 'E-400-001-101')
+            self.assertEqual(exc.get_error_code(), 'E-400-001-100')
         else:
             self.fail()
 
@@ -52,7 +52,7 @@ class RegisterTestCase(TestCase):
         try:
             register(email=self.TEST_EMAIL, password=None)
         except APIException as exc:
-            self.assertEqual(exc.get_error_code(), 'E-400-001-111')
+            self.assertEqual(exc.get_error_code(), 'E-400-001-110')
         else:
             self.fail()
 
@@ -60,7 +60,7 @@ class RegisterTestCase(TestCase):
         try:
             register(email=self.TEST_EMAIL, password='')
         except APIException as exc:
-            self.assertEqual(exc.get_error_code(), 'E-400-001-111')
+            self.assertEqual(exc.get_error_code(), 'E-400-001-110')
         else:
             self.fail()
 
@@ -68,7 +68,7 @@ class RegisterTestCase(TestCase):
         try:
             register(email=self.TEST_EMAIL, password='123')
         except APIException as exc:
-            self.assertEqual(exc.get_error_code(), 'E-400-001-112')
+            self.assertEqual(exc.get_error_code(), 'E-400-001-111')
         else:
             self.fail()
 
@@ -76,6 +76,6 @@ class RegisterTestCase(TestCase):
         try:
             register(email='email_already_exist@test.test', password=self.TEST_PASSWORD)
         except APIException as exc:
-            self.assertEqual(exc.get_error_code(), 'E-409-001-101')
+            self.assertEqual(exc.get_error_code(), 'E-409-001-100')
         else:
             self.fail()

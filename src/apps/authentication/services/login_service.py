@@ -10,20 +10,20 @@ User = get_user_model()
 
 def login(email, password):
     if not isinstance(email, str) or not email:
-        raise BadRequestException(api_code=APICode.LOGIN, error_code=101, error_detail='Email is not valid',
+        raise BadRequestException(api_code=APICode.LOGIN, error_code=100, error_detail='Email is not valid',
                                   error_fields={'email': 'Email is multiple, null or empty'})
 
     if not isinstance(password, str) or not password:
-        raise BadRequestException(api_code=APICode.LOGIN, error_code=111, error_detail='Password is not valid',
+        raise BadRequestException(api_code=APICode.LOGIN, error_code=110, error_detail='Password is not valid',
                                   error_fields={'password': 'Password is multiple, null or empty'})
 
     try:
         user = User.objects.get(email=email)
     except User.DoesNotExist as exc:
-        raise NotFoundException(api_code=APICode.LOGIN, error_code=101, error_detail='Email does not exists') from exc
+        raise NotFoundException(api_code=APICode.LOGIN, error_code=100, error_detail='Email does not exists') from exc
 
     if not user.check_password(raw_password=password):
-        raise UnauthorizedException(api_code=APICode.LOGIN, error_code=111, error_detail='Password incorrect')
+        raise UnauthorizedException(api_code=APICode.LOGIN, error_code=110, error_detail='Password incorrect')
 
     user.last_login = timezone.now()
     user.save()

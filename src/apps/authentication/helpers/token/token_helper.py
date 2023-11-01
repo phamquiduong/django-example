@@ -21,7 +21,7 @@ class TokenBase:
         })
 
         if jwt_helper.error is not None:
-            raise APIException(api_code=self.api_code, error_detail=jwt_helper.error)
+            raise APIException(api_code=self.api_code, error_code=10, error_detail=jwt_helper.error)
 
         return jwt_helper.token
 
@@ -29,10 +29,10 @@ class TokenBase:
         jwt_helper = JWTHelper(token=token)
 
         if jwt_helper.error is not None:
-            raise UnauthorizedException(api_code=self.api_code, error_detail=jwt_helper.error)
+            raise UnauthorizedException(api_code=self.api_code, error_code=10, error_detail=jwt_helper.error)
 
         if jwt_helper.payload.get('type', None) != self.token_type:
-            raise UnauthorizedException(api_code=self.api_code, error_detail='Token type mismatch')
+            raise UnauthorizedException(api_code=self.api_code, error_code=11, error_detail='Token type mismatch')
 
         return jwt_helper.payload.get('user_id', None)
 
