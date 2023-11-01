@@ -20,10 +20,10 @@ def login(email, password):
     try:
         user = User.objects.get(email=email)
     except User.DoesNotExist as exc:
-        raise NotFoundException(api_code=APICode.LOGIN, error_code=101, error_detail='User is not found') from exc
+        raise NotFoundException(api_code=APICode.LOGIN, error_code=101, error_detail='Email does not exists') from exc
 
     if not user.check_password(raw_password=password):
-        raise UnauthorizedException(api_code=APICode.LOGIN, error_code=111, error_detail='Email or password incorrect')
+        raise UnauthorizedException(api_code=APICode.LOGIN, error_code=111, error_detail='Password incorrect')
 
     user.last_login = timezone.now()
     user.save()

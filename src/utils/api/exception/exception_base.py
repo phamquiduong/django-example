@@ -12,14 +12,11 @@ class APIException(Exception):
                  error_code: int = 0,
                  error_detail: str | None = None,
                  error_fields: dict[str, str | list[str]] | None = None) -> None:
-
         self.status_code = status_code
         self.api_code = api_code
         self.error_code = error_code
         self.error_detail = error_detail or (status_code.description if isinstance(status_code, HTTPStatus) else '')
-        if error_fields is not None:
-            self.error_fields = {k: [v] if not isinstance(v, list) else v for k, v in error_fields.items()}
-
+        self.error_fields = error_fields
         super().__init__(self.error_detail)
 
     def get_error_code(self):
@@ -32,7 +29,8 @@ class APIException(Exception):
             'error_detail': self.error_detail,
         }
         if self.error_fields is not None:
-            error_dict['error_fields'] = self.error_fields
+            error_dict['error_fields'] = ({'field_name': k, 'errors': [v] if not isinstance(v, list) else v}
+                                          for k, v in self.error_fields.items())
         return error_dict
 
     def dumps(self):

@@ -1,6 +1,6 @@
 import json
 from datetime import date, datetime
-from typing import Any
+from typing import Any, Generator
 
 from django.db.models import QuerySet
 
@@ -12,6 +12,9 @@ class MyEncoder(json.JSONEncoder):
 
         if isinstance(o, QuerySet):
             return list(o.values())
+
+        if isinstance(o, Generator):
+            return list(o)
 
         try:
             return super().default(o)
